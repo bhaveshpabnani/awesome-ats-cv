@@ -1,3 +1,7 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "awesome-ats-cv"
 version = "0.1.0"
@@ -22,3 +26,12 @@ bullet_width_min = 0.90
 bullet_width_max = 0.98
 max_bottom_whitespace_mm = 14
 body_font_points = [10, 11]
+
+[project.scripts]
+atscv-audit-structure = "scripts.audit_ats_structure:main"
+atscv-extract-keywords = "scripts.extract_job_keywords:main"
+atscv-render-template = "scripts.render_resume_template:main"
+atscv-update-data = "scripts.update_resume_data:main"
+
+[tool.setuptools.packages.find]
+include = ["scripts*"]

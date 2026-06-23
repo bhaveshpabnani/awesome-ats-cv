@@ -4,6 +4,7 @@ __pycache__/
 .env
 atscv-validation/
 rendered/
+out/
 extracted.txt
 *.png
 *.pdf

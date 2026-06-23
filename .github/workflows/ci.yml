@@ -40,3 +40,11 @@ jobs:
           - Reduced resume QA guesswork by rendering PDFs, extracting text, and measuring page coverage
           EOF
           python scripts/lint_cv_text.py /tmp/atscv-clean.md
+
+      - name: Smoke-test templates and keyword tools
+        shell: bash
+        run: |
+          python scripts/render_resume_template.py --template technical-sde.html --data examples/resume-data.json --out /tmp/atscv-template.html
+          python scripts/audit_ats_structure.py /tmp/atscv-template.html
+          python scripts/extract_job_keywords.py examples/job-description.txt --resume /tmp/atscv-template.html --limit 10
+          python scripts/update_resume_data.py examples/resume-data.json --out /tmp/atscv-data.json --add-skill "Cloud=Azure"

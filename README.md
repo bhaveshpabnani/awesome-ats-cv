@@ -22,7 +22,9 @@ Awesome ATS CV is both a local Codex skill named `ats-cv-crafter` and a portable
 2. Convert raw work history into concise STAR/XYZ-style bullets
 3. Keep formatting consistent across sections, dates, bullets, links, spacing, and headings
 4. Bold the right technical keywords without turning the whole resume into noise
-5. Validate final layout by rendering previews, measuring bullet widths, checking page coverage, and extracting PDF text
+5. Render role-specific HTML templates from structured JSON data
+6. Validate final layout by rendering previews, measuring bullet widths, checking page coverage, and extracting PDF text
+7. Compare job-description keywords against resume content before applying
 
 ## What It Optimizes
 
@@ -58,19 +60,34 @@ awesome-ats-cv/
 ├── agents/
 │   └── openai.yaml
 ├── references/
+│   ├── ats-research.md
 │   ├── action-verbs.md
 │   ├── bullet-writing.md
 │   ├── formatting-rules.md
 │   ├── process-safety.md
 │   └── skills-packaging.md
+├── templates/
+│   ├── data-ai.html
+│   ├── executive-leadership.html
+│   ├── internship-campus.html
+│   ├── product-analytics.html
+│   ├── research-academic.html
+│   └── technical-sde.html
+├── examples/
+│   ├── job-description.txt
+│   └── resume-data.json
 └── scripts/
+    ├── audit_ats_structure.py
     ├── atscv_utils.py
     ├── extract_pdf_text.py
+    ├── extract_job_keywords.py
     ├── html_to_pdf.py
     ├── lint_cv_text.py
     ├── measure_bullet_widths.py
     ├── measure_page_coverage.py
+    ├── render_resume_template.py
     ├── render_pdf_pages.py
+    ├── update_resume_data.py
     └── validate_cv.py
 ```
 
@@ -155,6 +172,28 @@ For HTML resumes, run the full validator:
 python3 scripts/validate_cv.py path/to/resume.html --min-width 0.90 --max-width 0.98 --max-bottom-mm 14
 ```
 
+To render a bundled HTML template from structured JSON:
+
+```bash
+python3 scripts/render_resume_template.py --list
+python3 scripts/render_resume_template.py --template technical-sde.html --data examples/resume-data.json --out out/resume.html
+python3 scripts/validate_cv.py out/resume.html
+```
+
+To edit resume JSON without touching template markup:
+
+```bash
+python3 scripts/update_resume_data.py examples/resume-data.json --out out/resume-data.json --set "profile.headline=Software Engineer | Azure Data | Distributed Systems"
+python3 scripts/update_resume_data.py out/resume-data.json --in-place --add-skill "Cloud=Azure" --add-bullet "projects:0:Optimized **PDF validation** checks across macOS, Linux, and Windows"
+```
+
+To extract job keywords and check resume coverage:
+
+```bash
+python3 scripts/extract_job_keywords.py examples/job-description.txt --limit 30
+python3 scripts/extract_job_keywords.py examples/job-description.txt --resume out/resume.html --limit 30
+```
+
 For PDF-only validation:
 
 ```bash
@@ -167,7 +206,11 @@ python3 scripts/extract_pdf_text.py path/to/resume.pdf --out atscv-validation/ex
 
 | Script | Purpose |
 | --- | --- |
+| `scripts/audit_ats_structure.py` | Flags risky HTML structures such as tables, images, headers, footers, grids, absolute positioning, and non-standard headings |
 | `scripts/lint_cv_text.py` | Checks bullet full stops, comma/colon/slash/bracket/pipe spacing, date style, and repeated action verbs |
+| `scripts/extract_job_keywords.py` | Extracts job-description keyword candidates and compares whether they appear in a resume source |
+| `scripts/render_resume_template.py` | Renders bundled ATS-safe HTML templates from `examples/resume-data.json`-style structured data |
+| `scripts/update_resume_data.py` | Edits structured resume JSON fields, skill categories, and bullets without manual JSON surgery |
 | `scripts/measure_bullet_widths.py` | Uses Playwright to measure whether each rendered bullet fills the target width range |
 | `scripts/html_to_pdf.py` | Converts parser-safe HTML resumes into print PDFs with Chrome, Chromium, or Edge |
 | `scripts/render_pdf_pages.py` | Renders PDF pages to PNG using Poppler `pdftoppm` for visual inspection |
@@ -175,6 +218,21 @@ python3 scripts/extract_pdf_text.py path/to/resume.pdf --out atscv-validation/ex
 | `scripts/extract_pdf_text.py` | Extracts ATS-readable text from PDFs using Poppler `pdftotext` or `pypdf` fallback |
 | `scripts/validate_cv.py` | Runs the full HTML/PDF validation pipeline with one command |
 | `scripts/atscv_utils.py` | Shared cross-platform discovery for browsers and Poppler tools |
+
+## HTML Templates
+
+The package includes six single-column HTML templates:
+
+| Template | Best for |
+| --- | --- |
+| `technical-sde.html` | SDE, backend, cloud, infra, distributed systems, and platform roles |
+| `data-ai.html` | ML engineering, data science, AI platform, analytics engineering, and LLM roles |
+| `internship-campus.html` | Campus placements, internships, early-career profiles, and one-page student resumes |
+| `product-analytics.html` | Product analytics, business analytics, strategy, and data-heavy product roles |
+| `research-academic.html` | Research internships, academic CVs, publications, labs, and graduate applications |
+| `executive-leadership.html` | Senior engineering, founding, program ownership, and leadership-oriented resumes |
+
+All templates avoid tables, sidebars, photos, icon-only contact rows, headers, footers, and non-standard section labels. They support `**bold keywords**` inside JSON bullets.
 
 ## What the Full Validator Reports
 
@@ -238,6 +296,10 @@ Awesome ATS CV is designed around all three. It favors concrete ownership, numbe
 ## Cross-Platform Design
 
 The toolkit avoids Codex-specific runtime assumptions. The skill files help Codex follow the rules, while the scripts can be used in CI, local pre-submission checks, GitHub Actions, or any resume build pipeline. The browser and Poppler discovery logic supports macOS app bundles, Linux package installs, Windows executable paths, and explicit environment-variable overrides.
+
+## Research-Backed ATS Guidance
+
+The latest research notes are in `references/ats-research.md`. The current package encodes guidance from Harvard Mignone Center for Career Success, Indeed Career Guide, Santa Clara University Career Center, Columbia Career Education, Yale Office of Career Strategy, and Jobscan into concrete checks and defaults: standard headings, single-column templates, natural job-description keywords, long-form/acronym keyword variants, body contact information, no tables/graphics/headers/footers, and render-plus-extract validation.
 
 ## Repository Status
 

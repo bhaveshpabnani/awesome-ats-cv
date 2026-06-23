@@ -7,7 +7,10 @@ import argparse
 import subprocess
 from pathlib import Path
 
-from atscv_utils import ensure_parent, fail, find_poppler_tool
+try:
+    from atscv_utils import ensure_parent, fail, find_poppler_tool
+except ModuleNotFoundError:  # pragma: no cover - package entry point path
+    from .atscv_utils import ensure_parent, fail, find_poppler_tool
 
 
 def extract_with_pypdf(pdf: Path) -> str | None:
@@ -57,4 +60,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

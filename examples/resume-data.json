@@ -1,0 +1,68 @@
+{
+  "profile": {
+    "name": "Alex Candidate",
+    "headline": "Software Engineer | Distributed Systems | Data Platforms | AI Applications",
+    "summary": "Software engineer focused on **distributed systems**, **data platforms**, and **AI applications**, with experience shipping production APIs, analytics workflows, and cross-platform tooling",
+    "contact": [
+      {"label": "alex@example.com", "href": "mailto:alex@example.com"},
+      {"label": "+1 555 010 0101", "href": "tel:+15550100101"},
+      {"label": "github.com/alex", "href": "https://github.com/alex"},
+      {"label": "linkedin.com/in/alex", "href": "https://linkedin.com/in/alex"}
+    ]
+  },
+  "skills": {
+    "Languages": ["Python", "TypeScript", "C++", "SQL"],
+    "Backend": ["FastAPI", "Node.js", "REST APIs", "WebSockets"],
+    "Data": ["PostgreSQL", "Redis", "Kafka", "Spark"],
+    "Cloud": ["AWS EC2", "Docker", "GitHub Actions", "Linux"],
+    "AI": ["LLMs", "RAG", "LangGraph", "Evaluation"]
+  },
+  "experience": [
+    {
+      "title": "Software Engineering Intern",
+      "organization": "Example Cloud",
+      "location": "Remote",
+      "dates": "May 2025 - Aug 2025",
+      "keywords": ["Python", "FastAPI", "PostgreSQL", "Redis"],
+      "bullets": [
+        "Built **tenant-scoped APIs** for analytics workflows, serving 250K+ records with request-level authorization and cached reads",
+        "Reduced report generation latency from 11s to 3s by batching SQL queries and caching high-frequency dimensions in **Redis**",
+        "Instrumented CI health checks, catching schema regressions before deployment across 4 environments"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "title": "AI Resume Validation Toolkit",
+      "organization": "Self-Project",
+      "dates": "Jan 2026 - Present",
+      "keywords": ["Python", "Playwright", "Poppler", "HTML", "PDF"],
+      "bullets": [
+        "Developed **ATS validation scripts** for bullet width, page coverage, PDF text extraction, and structure audits across platforms",
+        "Automated HTML-to-PDF rendering with Chrome/Chromium and Poppler for one-command layout QA"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "B.Tech in Computer Science",
+      "institution": "Example Institute of Technology",
+      "location": "India",
+      "dates": "Jul 2022 - May 2026",
+      "details": ["CGPA: 8.7/10", "Coursework: Data Structures, Databases, Operating Systems, Distributed Systems"]
+    }
+  ],
+  "achievements": [
+    "Ranked in the top 2% among 8,000+ participants in a national algorithmic programming contest",
+    "Selected for a competitive software engineering internship cohort from 1,200+ applicants"
+  ],
+  "leadership": [
+    "Led a 6-member engineering team to ship a campus placement tool used by 400+ students"
+  ],
+  "certifications": [
+    "AWS Cloud Practitioner"
+  ],
+  "publications": [
+    "Candidate, A. and Collaborator, B. Efficient Resume Layout Validation. Workshop on Practical Developer Tools, 2026"
+  ]
+}

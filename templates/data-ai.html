@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{NAME}} - Data and AI Resume</title>
+  <style>
+    @page { size: A4; margin: 10mm 12mm; }
+    body { margin: 0; color: #111827; font-family: Calibri, Arial, sans-serif; font-size: 10.7pt; line-height: 1.24; }
+    .page { max-width: 188mm; margin: 0 auto; }
+    h1 { margin: 0; font-size: 21pt; text-align: center; letter-spacing: 0; }
+    .headline, .contact { text-align: center; margin: 2px 0; }
+    .headline { font-weight: 700; }
+    a { color: #111827; text-decoration: none; }
+    section { margin-top: 6px; }
+    h2 { margin: 0 0 3px; border-bottom: 1px solid #111827; font-size: 10pt; text-transform: uppercase; letter-spacing: 0; }
+    p { margin: 2px 0; }
+    .entry { margin-top: 3px; }
+    .entry-head { display: flex; justify-content: space-between; gap: 8px; }
+    .entry-head strong, strong { font-size: 9.8pt; }
+    .entry-head span { white-space: nowrap; }
+    .keywords { font-size: 10pt; color: #374151; }
+    ul { margin: 2px 0 0 16px; padding: 0; }
+    li { margin: 1px 0; }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <h1>{{NAME}}</h1>
+    <p class="headline">{{HEADLINE}}</p>
+    <p class="contact">{{CONTACT}}</p>
+    <section><h2>Summary</h2><p>{{SUMMARY}}</p></section>
+    <section><h2>Technical Skills</h2>{{SKILLS}}</section>
+    {{PROJECTS}}
+    {{EXPERIENCE}}
+    {{EDUCATION}}
+    {{PUBLICATIONS}}
+    {{CERTIFICATIONS}}
+  </main>
+</body>
+</html>

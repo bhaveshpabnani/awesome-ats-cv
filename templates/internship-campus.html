@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{NAME}} - Internship Resume</title>
+  <style>
+    @page { size: A4; margin: 9mm 11mm; }
+    body { margin: 0; color: #111827; font-family: Arial, Helvetica, sans-serif; font-size: 10.4pt; line-height: 1.22; }
+    .page { max-width: 190mm; margin: 0 auto; }
+    h1 { margin: 0; font-size: 21pt; text-align: center; letter-spacing: 0; }
+    .headline, .contact { text-align: center; margin: 2px 0; }
+    .headline { font-weight: 700; }
+    a { color: #111827; text-decoration: none; }
+    section { margin-top: 5px; }
+    h2 { margin: 0 0 2px; border-bottom: 0.8px solid #111827; font-size: 10pt; text-transform: uppercase; letter-spacing: 0; }
+    p { margin: 2px 0; }
+    .entry { margin-top: 3px; }
+    .entry-head { display: flex; justify-content: space-between; gap: 8px; }
+    .entry-head strong, strong { font-size: 9.7pt; }
+    .entry-head span { white-space: nowrap; }
+    .keywords { font-size: 10pt; color: #374151; }
+    ul { margin: 2px 0 0 16px; padding: 0; }
+    li { margin: 1px 0; }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <h1>{{NAME}}</h1>
+    <p class="headline">{{HEADLINE}}</p>
+    <p class="contact">{{CONTACT}}</p>
+    {{EDUCATION}}
+    <section><h2>Technical Skills</h2>{{SKILLS}}</section>
+    {{EXPERIENCE}}
+    {{PROJECTS}}
+    {{ACHIEVEMENTS}}
+    {{LEADERSHIP}}
+  </main>
+</body>
+</html>

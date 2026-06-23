@@ -7,7 +7,10 @@ import argparse
 import json
 from pathlib import Path
 
-from atscv_utils import fail, find_chromium, path_to_file_url
+try:
+    from atscv_utils import fail, find_chromium, path_to_file_url
+except ModuleNotFoundError:  # pragma: no cover - package entry point path
+    from .atscv_utils import fail, find_chromium, path_to_file_url
 
 
 MEASURE_JS = r"""
@@ -97,4 +100,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

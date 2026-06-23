@@ -36,6 +36,7 @@ description: Create, rewrite, audit, or package ATS-friendly CVs and resumes, es
 - Read `references/action-verbs.md` when bullets need stronger verbs or verb de-duplication.
 - Read `references/skills-packaging.md` when extracting, grouping, or deduplicating a comprehensive skills section.
 - Read `references/process-safety.md` when preparing a CV for a fragile portal, final submission, peer review, printing, or interview-readiness.
+- Read `references/ats-research.md` when applying broad ATS compatibility guidance, job keyword matching, HTML template selection, or parser-risk auditing.
 
 ## Validation
 
@@ -45,6 +46,7 @@ Before delivering a final CV:
 2. Render at least one visual preview of every page.
 3. For layout-sensitive one-page CVs, measure or visually verify that every bullet stays on one line and uses roughly 90 percent of the line width.
 4. Extract plain text from the PDF and verify section order, links, dates, bullets, and names.
-5. Run the linter script if possible.
-6. Confirm grammar, print readability, backup/source export, and interview defensibility.
-7. Report any unverifiable metric, missing phone number, missing link, or source limitation.
+5. For HTML resumes, run `python3 scripts/audit_ats_structure.py <resume.html>` before PDF rendering.
+6. Run the linter script if possible.
+7. Confirm grammar, print readability, backup/source export, and interview defensibility.
+8. Report any unverifiable metric, missing phone number, missing link, or source limitation.

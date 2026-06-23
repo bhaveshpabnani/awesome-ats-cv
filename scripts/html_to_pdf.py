@@ -7,7 +7,10 @@ import argparse
 import subprocess
 from pathlib import Path
 
-from atscv_utils import ensure_parent, fail, find_chromium, path_to_file_url
+try:
+    from atscv_utils import ensure_parent, fail, find_chromium, path_to_file_url
+except ModuleNotFoundError:  # pragma: no cover - package entry point path
+    from .atscv_utils import ensure_parent, fail, find_chromium, path_to_file_url
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -53,4 +56,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

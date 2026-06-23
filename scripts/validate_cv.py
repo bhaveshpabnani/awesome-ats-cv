@@ -8,7 +8,10 @@ import subprocess
 import sys
 from pathlib import Path
 
-from atscv_utils import fail
+try:
+    from atscv_utils import fail
+except ModuleNotFoundError:  # pragma: no cover - package entry point path
+    from .atscv_utils import fail
 
 
 SCRIPT_DIR = Path(__file__).resolve().parent
@@ -47,6 +50,7 @@ def main() -> int:
         run([sys.executable, str(SCRIPT_DIR / "lint_cv_text.py"), str(source)], required=False)
 
     if suffix in {".html", ".htm"}:
+        run([sys.executable, str(SCRIPT_DIR / "audit_ats_structure.py"), str(source)])
         run(
             [
                 sys.executable,

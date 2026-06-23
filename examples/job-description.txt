@@ -1,0 +1,7 @@
+Software Engineer, Azure Data
+
+Design, implement, and ship distributed database management system offerings that provide customer value in security, performance, reliability, usability, and manageability.
+
+Build and maintain large-scale operational database systems with structured data storage, distributed systems tradeoffs, and developer-friendly cloud services.
+
+Required skills include software development, production services, C#, C++, cloud platforms, distributed systems, databases, reliability, performance, security, and written communication.

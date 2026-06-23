@@ -7,7 +7,10 @@ import argparse
 import subprocess
 from pathlib import Path
 
-from atscv_utils import fail, find_poppler_tool
+try:
+    from atscv_utils import fail, find_poppler_tool
+except ModuleNotFoundError:  # pragma: no cover - package entry point path
+    from .atscv_utils import fail, find_poppler_tool
 
 
 def build_parser() -> argparse.ArgumentParser:
