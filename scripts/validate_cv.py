@@ -33,6 +33,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--max-width", type=float, default=0.98)
     parser.add_argument("--max-bottom-mm", type=float, default=14.0)
     parser.add_argument("--dpi", type=int, default=180)
+    parser.add_argument("--grammar-provider", choices=["offline", "languagetool", "manual", "skip"], default="offline")
     return parser
 
 
@@ -48,9 +49,13 @@ def main() -> int:
 
     if suffix in {".txt", ".md", ".tex"}:
         run([sys.executable, str(SCRIPT_DIR / "lint_cv_text.py"), str(source)], required=False)
+        run([sys.executable, str(SCRIPT_DIR / "audit_resume_content.py"), str(source)], required=False)
+        run([sys.executable, str(SCRIPT_DIR / "check_grammar.py"), str(source), "--provider", args.grammar_provider], required=False)
 
     if suffix in {".html", ".htm"}:
         run([sys.executable, str(SCRIPT_DIR / "audit_ats_structure.py"), str(source)])
+        run([sys.executable, str(SCRIPT_DIR / "audit_resume_content.py"), str(source)], required=False)
+        run([sys.executable, str(SCRIPT_DIR / "check_grammar.py"), str(source), "--provider", args.grammar_provider], required=False)
         run(
             [
                 sys.executable,
@@ -81,7 +86,11 @@ def main() -> int:
                     str(args.max_bottom_mm),
                 ]
             )
-        run([sys.executable, str(SCRIPT_DIR / "extract_pdf_text.py"), str(pdf), "--out", str(args.workdir / "extracted.txt")], required=False)
+        extracted = args.workdir / "extracted.txt"
+        run([sys.executable, str(SCRIPT_DIR / "extract_pdf_text.py"), str(pdf), "--out", str(extracted)], required=False)
+        if extracted.exists():
+            run([sys.executable, str(SCRIPT_DIR / "audit_resume_content.py"), str(extracted)], required=False)
+            run([sys.executable, str(SCRIPT_DIR / "check_grammar.py"), str(extracted), "--provider", args.grammar_provider], required=False)
 
     print("ATS CV validation complete")
     return 0

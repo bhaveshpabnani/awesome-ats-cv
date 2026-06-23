@@ -20,6 +20,9 @@ docx = [
   "python-docx>=1.1",
   "lxml>=5",
 ]
+grammar = [
+  "pyspellchecker>=0.8",
+]
 
 [tool.awesome-ats-cv]
 bullet_width_min = 0.90
@@ -29,6 +32,8 @@ body_font_points = [10, 11]
 
 [project.scripts]
 atscv-audit-structure = "scripts.audit_ats_structure:main"
+atscv-audit-content = "scripts.audit_resume_content:main"
+atscv-check-grammar = "scripts.check_grammar:main"
 atscv-extract-keywords = "scripts.extract_job_keywords:main"
 atscv-render-template = "scripts.render_resume_template:main"
 atscv-update-data = "scripts.update_resume_data:main"

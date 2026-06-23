@@ -25,6 +25,7 @@ Awesome ATS CV is both a local Codex skill named `ats-cv-crafter` and a portable
 5. Render role-specific HTML templates from structured JSON data
 6. Validate final layout by rendering previews, measuring bullet widths, checking page coverage, and extracting PDF text
 7. Compare job-description keywords against resume content before applying
+8. Run an end-to-end workflow from evidence inventory to final portal-safe submission
 
 ## What It Optimizes
 
@@ -38,6 +39,7 @@ Awesome ATS CV is both a local Codex skill named `ats-cv-crafter` and a portable
 | Page fit | Avoid large empty bottom gaps; restore high-value content or tune spacing before adding filler |
 | Dates | Use readable full-year dates such as `May 2025 - Jul 2025` and align them right |
 | Readability | Use 10pt or 11pt body text only; never shrink to 9pt to force fit |
+| Process safety | Finish early, keep backups, validate portal output, print-check final resumes, and get human review |
 
 ## Core Rules
 
@@ -63,9 +65,14 @@ awesome-ats-cv/
 │   ├── ats-research.md
 │   ├── action-verbs.md
 │   ├── bullet-writing.md
+│   ├── end-to-end-workflow.md
 │   ├── formatting-rules.md
+│   ├── grammar-checking.md
+│   ├── non-kgp-general-guidance.md
 │   ├── process-safety.md
-│   └── skills-packaging.md
+│   ├── resource-library.md
+│   ├── skills-packaging.md
+│   └── validation-matrix.md
 ├── templates/
 │   ├── data-ai.html
 │   ├── executive-leadership.html
@@ -78,7 +85,9 @@ awesome-ats-cv/
 │   └── resume-data.json
 └── scripts/
     ├── audit_ats_structure.py
+    ├── audit_resume_content.py
     ├── atscv_utils.py
+    ├── check_grammar.py
     ├── extract_pdf_text.py
     ├── extract_job_keywords.py
     ├── html_to_pdf.py
@@ -114,7 +123,7 @@ The scripts are plain Python and work on macOS, Linux, and Windows. Use Python `
 ```bash
 git clone https://github.com/bhaveshpabnani/awesome-ats-cv.git
 cd awesome-ats-cv
-python3 -m pip install -e ".[validate,docx]"
+python3 -m pip install -e ".[validate,docx,grammar]"
 python3 -m playwright install chromium
 ```
 
@@ -154,16 +163,21 @@ Use $ats-cv-crafter to audit this resume for ATS parsing, bullet density, dates,
 The toolkit is designed to validate the final artifact instead of trusting the source file blindly:
 
 1. Lint source text or LaTeX spacing rules
-2. Measure rendered HTML bullet width ratios
-3. Convert HTML to PDF through Chrome/Chromium/Edge
-4. Render PDF pages into PNG previews
-5. Measure page coverage, content box, margins, and bottom whitespace
-6. Extract PDF text to verify ATS-readable order
+2. Audit resume content for metrics, weak phrases, contact, sections, action verbs, and repeated openings
+3. Audit HTML structure for ATS parsing risks
+4. Measure rendered HTML bullet width ratios
+5. Convert HTML to PDF through Chrome/Chromium/Edge
+6. Render PDF pages into PNG previews
+7. Measure page coverage, content box, margins, and bottom whitespace
+8. Extract PDF text to verify ATS-readable order
+9. Check grammar through the offline validator plus a final Grammarly or LanguageTool pass
 
 For plain text or LaTeX-like sources, run:
 
 ```bash
 python3 scripts/lint_cv_text.py path/to/resume.tex
+python3 scripts/audit_resume_content.py path/to/resume.tex
+python3 scripts/check_grammar.py path/to/resume.tex --provider offline
 ```
 
 For HTML resumes, run the full validator:
@@ -194,6 +208,15 @@ python3 scripts/extract_job_keywords.py examples/job-description.txt --limit 30
 python3 scripts/extract_job_keywords.py examples/job-description.txt --resume out/resume.html --limit 30
 ```
 
+To run grammar validation:
+
+```bash
+python3 scripts/check_grammar.py out/resume.html --provider offline
+python3 scripts/check_grammar.py out/resume.html --provider spellchecker --dictionary references/resume-dictionary.txt
+python3 scripts/check_grammar.py out/resume.html --provider languagetool
+python3 scripts/check_grammar.py --provider manual
+```
+
 For PDF-only validation:
 
 ```bash
@@ -207,6 +230,8 @@ python3 scripts/extract_pdf_text.py path/to/resume.pdf --out atscv-validation/ex
 | Script | Purpose |
 | --- | --- |
 | `scripts/audit_ats_structure.py` | Flags risky HTML structures such as tables, images, headers, footers, grids, absolute positioning, and non-standard headings |
+| `scripts/audit_resume_content.py` | Audits metrics, action verbs, weak phrases, repeated openings, section coverage, contact, and link signals |
+| `scripts/check_grammar.py` | Runs offline hygiene checks, optional dictionary spellcheck, LanguageTool API checks, or a manual Grammarly review gate |
 | `scripts/lint_cv_text.py` | Checks bullet full stops, comma/colon/slash/bracket/pipe spacing, date style, and repeated action verbs |
 | `scripts/extract_job_keywords.py` | Extracts job-description keyword candidates and compares whether they appear in a resume source |
 | `scripts/render_resume_template.py` | Renders bundled ATS-safe HTML templates from `examples/resume-data.json`-style structured data |
@@ -300,6 +325,28 @@ The toolkit avoids Codex-specific runtime assumptions. The skill files help Code
 ## Research-Backed ATS Guidance
 
 The latest research notes are in `references/ats-research.md`. The current package encodes guidance from Harvard Mignone Center for Career Success, Indeed Career Guide, Santa Clara University Career Center, Columbia Career Education, Yale Office of Career Strategy, and Jobscan into concrete checks and defaults: standard headings, single-column templates, natural job-description keywords, long-form/acronym keyword variants, body contact information, no tables/graphics/headers/footers, and render-plus-extract validation.
+
+## Complete Workflow
+
+For a full resume pass, follow `references/end-to-end-workflow.md`:
+
+1. Pick the target role family and file strategy
+2. Build an evidence inventory from projects, repos, internships, metrics, and links
+3. Extract job-description keywords and map them to truthful resume sections
+4. Choose a standard section architecture
+5. Rewrite bullets with STAR/XYZ compression, action verbs, keywords, and metrics
+6. Apply ATS-safe formatting and template constraints
+7. Validate line width, page fill, structure, content, PDF render, and extracted text
+8. Run grammar, print, peer, and interview-defensibility review
+9. Preserve portal backups and final submitted files
+
+The generalized peer-review rules from the uploaded notes live in `references/non-kgp-general-guidance.md`. The validation playbook lives in `references/validation-matrix.md`.
+
+Grammar and proofreading rules live in `references/grammar-checking.md`. The package uses deterministic offline hygiene checks for CI, supports optional `pyspellchecker` dictionary checks, supports LanguageTool for automated grammar review, and treats Grammarly as a final manual or enterprise-configured review gate.
+
+## External Resource Library
+
+The curated source list lives in `references/resource-library.md` and includes MIT CAPD, Harvard, Columbia, Santa Clara University, Yale, Indeed, The Muse, Jobscan, Skillsyncer, and Resume Worded. Use university/career-center sources as baseline rules, and treat commercial scoring tools as secondary checks rather than final authority.
 
 ## Repository Status
 

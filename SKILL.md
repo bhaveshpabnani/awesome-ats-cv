@@ -37,6 +37,11 @@ description: Create, rewrite, audit, or package ATS-friendly CVs and resumes, es
 - Read `references/skills-packaging.md` when extracting, grouping, or deduplicating a comprehensive skills section.
 - Read `references/process-safety.md` when preparing a CV for a fragile portal, final submission, peer review, printing, or interview-readiness.
 - Read `references/ats-research.md` when applying broad ATS compatibility guidance, job keyword matching, HTML template selection, or parser-risk auditing.
+- Read `references/end-to-end-workflow.md` for the complete drafting, targeting, validation, review, and submission process.
+- Read `references/non-kgp-general-guidance.md` when applying generalized peer-review rules from campus placement advice without institute-specific jargon.
+- Read `references/resource-library.md` when the user asks for websites, external resources, or research-backed guidance.
+- Read `references/validation-matrix.md` when deciding which validation scripts and manual checks are required.
+- Read `references/grammar-checking.md` when adding Grammarly, LanguageTool, grammar, spelling, or proofreading validation.
 
 ## Validation
 
@@ -47,6 +52,8 @@ Before delivering a final CV:
 3. For layout-sensitive one-page CVs, measure or visually verify that every bullet stays on one line and uses roughly 90 percent of the line width.
 4. Extract plain text from the PDF and verify section order, links, dates, bullets, and names.
 5. For HTML resumes, run `python3 scripts/audit_ats_structure.py <resume.html>` before PDF rendering.
-6. Run the linter script if possible.
-7. Confirm grammar, print readability, backup/source export, and interview defensibility.
-8. Report any unverifiable metric, missing phone number, missing link, or source limitation.
+6. Run `python3 scripts/audit_resume_content.py <source>` to inspect metrics, weak phrases, contact, repeated verbs, and section coverage.
+7. Run `python3 scripts/check_grammar.py <source> --provider offline` and complete a Grammarly or LanguageTool pass before final submission.
+8. Run the linter script if possible.
+9. Confirm grammar, print readability, backup/source export, and interview defensibility.
+10. Report any unverifiable metric, missing phone number, missing link, or source limitation.

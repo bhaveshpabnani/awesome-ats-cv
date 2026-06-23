@@ -46,5 +46,7 @@ jobs:
         run: |
           python scripts/render_resume_template.py --template technical-sde.html --data examples/resume-data.json --out /tmp/atscv-template.html
           python scripts/audit_ats_structure.py /tmp/atscv-template.html
+          python scripts/audit_resume_content.py /tmp/atscv-template.html
+          python scripts/check_grammar.py /tmp/atscv-template.html --provider offline
           python scripts/extract_job_keywords.py examples/job-description.txt --resume /tmp/atscv-template.html --limit 10
           python scripts/update_resume_data.py examples/resume-data.json --out /tmp/atscv-data.json --add-skill "Cloud=Azure"
