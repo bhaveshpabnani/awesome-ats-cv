@@ -22,7 +22,15 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Compile scripts
-        run: python -m py_compile scripts/*.py
+        shell: bash
+        run: |
+          python - <<'PY'
+          import py_compile
+          from pathlib import Path
+
+          for path in sorted(Path("scripts").glob("*.py")):
+              py_compile.compile(str(path), doraise=True)
+          PY
 
       - name: Smoke-test text linter
         shell: bash
