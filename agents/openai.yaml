@@ -1,0 +1,4 @@
+interface:
+  display_name: "ATS CV Crafter"
+  short_description: "ATS-safe CVs with dense one-line bullets"
+  default_prompt: "Use $ats-cv-crafter to revise my CV with ATS-safe formatting, bold keywords, quantified impact, one-line width-balanced bullets, and PDF validation."

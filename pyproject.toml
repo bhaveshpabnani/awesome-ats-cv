@@ -1,0 +1,24 @@
+[project]
+name = "awesome-ats-cv"
+version = "0.1.0"
+description = "Cross-platform ATS CV skill and validation toolkit"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+validate = [
+  "playwright>=1.40",
+  "pillow>=10",
+  "pypdf>=4",
+]
+docx = [
+  "python-docx>=1.1",
+  "lxml>=5",
+]
+
+[tool.awesome-ats-cv]
+bullet_width_min = 0.90
+bullet_width_max = 0.98
+max_bottom_whitespace_mm = 14
+body_font_points = [10, 11]

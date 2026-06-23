@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.DS_Store
+.env
+atscv-validation/
+rendered/
+extracted.txt
+*.png
+*.pdf
+*.docx
+*.zip
